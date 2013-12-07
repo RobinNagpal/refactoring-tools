@@ -1,4 +1,4 @@
-package edu.pdx.cs.multiview.smelldetector.detectors.tooManyArguments;
+package edu.pdx.cs.multiview.smelldetector.methods.tooManyArguments;
 
 import java.util.Map;
 

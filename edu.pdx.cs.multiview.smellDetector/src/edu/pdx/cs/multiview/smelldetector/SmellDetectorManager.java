@@ -11,14 +11,14 @@ import org.eclipse.swt.graphics.Color;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.InstanceOf.InstanceoftDetector;
-import edu.pdx.cs.multiview.smelldetector.detectors.dataClump.DataClumpDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.featureEnvy.FeatureEnvyDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.largeClass.LargeClassDetector;
-import edu.pdx.cs.multiview.smelldetector.detectors.largeMethod.LargeMethodDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.messageChain.MessageChainDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.switchStatement.SwitchDetector;
-import edu.pdx.cs.multiview.smelldetector.detectors.tooManyArguments.TooManyArgumentsDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.typecast.TypecastDetector;
+import edu.pdx.cs.multiview.smelldetector.methods.dataClump.DataClumpDetector;
+import edu.pdx.cs.multiview.smelldetector.methods.largeMethod.LargeMethodDetector;
+import edu.pdx.cs.multiview.smelldetector.methods.tooManyArguments.TooManyArgumentsDetector;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class SmellDetectorManager {

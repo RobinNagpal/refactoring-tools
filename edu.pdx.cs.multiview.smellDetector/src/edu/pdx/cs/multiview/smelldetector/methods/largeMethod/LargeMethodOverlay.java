@@ -1,4 +1,4 @@
-package edu.pdx.cs.multiview.smelldetector.detectors.tooManyArguments;
+package edu.pdx.cs.multiview.smelldetector.methods.largeMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,23 +16,29 @@ import edu.pdx.cs.multiview.jface.annotation.Highlight;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellExplanationOverlay;
 
 
-public class TooManyArgumentsOverlay extends SmellExplanationOverlay<TooManyArgumentsClassInstance>{
+public class LargeMethodOverlay extends SmellExplanationOverlay<LargeMethodInstance>{
 
 	private Map<IMethod, Color> methodsToColors = new HashMap<IMethod, Color>();
 	
-	public TooManyArgumentsOverlay(TooManyArgumentsClassInstance inst, ISourceViewer sv) {
+	public LargeMethodOverlay(LargeMethodInstance inst, ISourceViewer sv) {
 		super(inst,sv);
 		init(inst);
 	}
 
-	private void init(TooManyArgumentsClassInstance inst) {
+	private void init(LargeMethodInstance inst) {
+
+		int shortest = inst.shortestLength();
+		int longest = inst.longestLength();
+		int mLength;
+		int red;
 		
 		AnnTransaction annotations = new AnnTransaction();
 		
-		for(Entry<IMethod, Integer> entry : inst.getMethodToNumberOfArguments().entrySet()){
-			int red = (int)(inst.magnitude() * 255);
+		for(Entry<IMethod, Integer> e : inst.sortedPairs()){
+			mLength = e.getValue();
+			red = (int)(((double)(mLength - shortest) / (double)(longest - shortest)) * 255);
 			final Color c = new Color(null,red,255-red,0);
-			IMethod m = entry.getKey();	
+			IMethod m = e.getKey();	
 			
 			methodsToColors.put(m,c);
 			
@@ -49,9 +55,7 @@ public class TooManyArgumentsOverlay extends SmellExplanationOverlay<TooManyArgu
 		
 		allocateColors(methodsToColors.values());
 		addAnnotations(annotations);
-
 	}
-
 
 	public Color colorFor(IMethod m){
 		return methodsToColors.get(m);

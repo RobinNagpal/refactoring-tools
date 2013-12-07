@@ -1,4 +1,4 @@
-package edu.pdx.cs.multiview.smelldetector.detectors.dataClump;
+package edu.pdx.cs.multiview.smelldetector.methods.dataClump;
 
 import java.util.List;
 

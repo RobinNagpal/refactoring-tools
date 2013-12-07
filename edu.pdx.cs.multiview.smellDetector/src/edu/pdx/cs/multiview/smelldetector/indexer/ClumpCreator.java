@@ -9,8 +9,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 
 import edu.pdx.cs.multiview.jdt.util.JDTUtils;
-import edu.pdx.cs.multiview.smelldetector.detectors.dataClump.ClumpCollector;
-import edu.pdx.cs.multiview.smelldetector.detectors.dataClump.ClumpsAtClassLevel;
+import edu.pdx.cs.multiview.smelldetector.methods.dataClump.ClumpCollector;
+import edu.pdx.cs.multiview.smelldetector.methods.dataClump.ClumpsAtClassLevel;
 
 @SuppressWarnings("restriction")
 public class ClumpCreator {

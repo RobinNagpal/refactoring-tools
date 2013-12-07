@@ -1,4 +1,4 @@
-package edu.pdx.cs.multiview.smelldetector.detectors.largeMethod;
+package edu.pdx.cs.multiview.smelldetector.methods.largeMethod;
 
 import java.util.Map;
 
