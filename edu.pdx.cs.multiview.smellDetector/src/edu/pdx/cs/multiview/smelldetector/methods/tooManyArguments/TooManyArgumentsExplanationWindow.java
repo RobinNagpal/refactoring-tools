@@ -19,7 +19,7 @@ public class TooManyArgumentsExplanationWindow extends SmellExplanationWindow {
 
 	private TooManyArgumentsOverlay overlay;
 
-	public TooManyArgumentsExplanationWindow(TooManyArgumentsClassInstance inst, ISourceViewer sv) {
+	public TooManyArgumentsExplanationWindow(TooManyArgumentsSmellInstance inst, ISourceViewer sv) {
 		super(sv.getTextWidget());
 		overlay = new TooManyArgumentsOverlay(inst, sv);
 		fillMain(sv.getTextWidget());

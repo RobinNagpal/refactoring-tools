@@ -18,12 +18,12 @@ import edu.pdx.cs.multiview.smelldetector.ColorManager.ColorIterator;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellExplanationOverlay;
 
 
-public class DataClumpOverlay extends SmellExplanationOverlay<ClumpSpider>{
+public class DataClumpOverlay extends SmellExplanationOverlay<ClumpSmellInstance>{
 
 	private Map<ClumpGroup, Color> clumpsToColors = 
 							new HashMap<ClumpGroup, Color>();
 	
-	public DataClumpOverlay(ClumpSpider inst, ISourceViewer sv) {
+	public DataClumpOverlay(ClumpSmellInstance inst, ISourceViewer sv) {
 		super(inst,sv);
 		init(inst);
 	}
@@ -32,7 +32,7 @@ public class DataClumpOverlay extends SmellExplanationOverlay<ClumpSpider>{
 		return clumpsToColors;
 	}
 
-	private void init(ClumpSpider inst) {
+	private void init(ClumpSmellInstance inst) {
 		
 		AnnTransaction annotations = new AnnTransaction();
 		

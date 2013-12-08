@@ -16,16 +16,16 @@ import edu.pdx.cs.multiview.jface.annotation.Highlight;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellExplanationOverlay;
 
 
-public class TooManyArgumentsOverlay extends SmellExplanationOverlay<TooManyArgumentsClassInstance>{
+public class TooManyArgumentsOverlay extends SmellExplanationOverlay<TooManyArgumentsSmellInstance>{
 
 	private Map<IMethod, Color> methodsToColors = new HashMap<IMethod, Color>();
 	
-	public TooManyArgumentsOverlay(TooManyArgumentsClassInstance inst, ISourceViewer sv) {
+	public TooManyArgumentsOverlay(TooManyArgumentsSmellInstance inst, ISourceViewer sv) {
 		super(inst,sv);
 		init(inst);
 	}
 
-	private void init(TooManyArgumentsClassInstance inst) {
+	private void init(TooManyArgumentsSmellInstance inst) {
 		
 		AnnTransaction annotations = new AnnTransaction();
 		

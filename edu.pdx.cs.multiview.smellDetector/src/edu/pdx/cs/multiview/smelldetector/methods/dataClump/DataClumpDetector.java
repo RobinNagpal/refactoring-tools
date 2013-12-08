@@ -10,7 +10,7 @@ import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class DataClumpDetector extends SmellDetector<SmellInstance>{
 
-	private ClumpSpider spider = new ClumpSpider();
+	private ClumpSmellInstance spider = new ClumpSmellInstance();
 	
 	public DataClumpDetector(Flower f) {
 		super(f);

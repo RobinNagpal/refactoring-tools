@@ -10,7 +10,7 @@ import org.eclipse.jdt.core.IMethod;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
 
-public class ClumpSpider implements SmellInstance {
+public class ClumpSmellInstance implements SmellInstance {
 
 	private List<IMethod> currentMethods = new ArrayList<IMethod>();
 

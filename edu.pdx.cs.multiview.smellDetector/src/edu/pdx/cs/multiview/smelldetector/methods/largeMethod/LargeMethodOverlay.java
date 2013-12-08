@@ -16,16 +16,16 @@ import edu.pdx.cs.multiview.jface.annotation.Highlight;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellExplanationOverlay;
 
 
-public class LargeMethodOverlay extends SmellExplanationOverlay<LargeMethodInstance>{
+public class LargeMethodOverlay extends SmellExplanationOverlay<LargeMethodSmellInstance>{
 
 	private Map<IMethod, Color> methodsToColors = new HashMap<IMethod, Color>();
 	
-	public LargeMethodOverlay(LargeMethodInstance inst, ISourceViewer sv) {
+	public LargeMethodOverlay(LargeMethodSmellInstance inst, ISourceViewer sv) {
 		super(inst,sv);
 		init(inst);
 	}
 
-	private void init(LargeMethodInstance inst) {
+	private void init(LargeMethodSmellInstance inst) {
 
 		int shortest = inst.shortestLength();
 		int longest = inst.longestLength();

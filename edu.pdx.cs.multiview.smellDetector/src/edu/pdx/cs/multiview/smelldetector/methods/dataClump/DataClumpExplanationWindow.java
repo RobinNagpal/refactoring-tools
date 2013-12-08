@@ -23,7 +23,7 @@ public class DataClumpExplanationWindow extends SmellExplanationWindow{
 	
 	private DataClumpOverlay overlay;
 
-	public DataClumpExplanationWindow(ClumpSpider inst, ISourceViewer sv) {
+	public DataClumpExplanationWindow(ClumpSmellInstance inst, ISourceViewer sv) {
 		super(sv.getTextWidget());
 		overlay = new DataClumpOverlay(inst,sv);
 		fillMain(sv.getTextWidget());

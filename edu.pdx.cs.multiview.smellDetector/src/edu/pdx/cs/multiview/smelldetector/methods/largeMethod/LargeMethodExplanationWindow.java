@@ -19,7 +19,7 @@ public class LargeMethodExplanationWindow extends SmellExplanationWindow{
 	
 	private LargeMethodOverlay overlay;
 
-	public LargeMethodExplanationWindow(LargeMethodInstance inst, ISourceViewer sv) {
+	public LargeMethodExplanationWindow(LargeMethodSmellInstance inst, ISourceViewer sv) {
 		super(sv.getTextWidget());
 		overlay = new LargeMethodOverlay(inst,sv);
 		fillMain(sv.getTextWidget());
