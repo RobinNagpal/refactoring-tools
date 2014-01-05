@@ -23,13 +23,11 @@ import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class SmellDetectorManager {
 
-	private static Comparator<SmellDetector<?>> comparator = new Comparator<SmellDetector<?>>(){
-		public int compare(SmellDetector<?> s1, SmellDetector<?> s2) {
-			return (int)(1000*(s1.order() - s2.order()));
-		}};
-		
 	private static Flower flower;
 	private static Map<SmellDetector<?>, Color> smells;
+	
+	ArrayList<SmellDetector<?>> methodSmellDetectors = new ArrayList<SmellDetector<?>>();
+	
 	
 	public Map<SmellDetector<?>,Color> smells(Flower f) {
 		
@@ -43,25 +41,6 @@ public class SmellDetectorManager {
 		return smells;
 	}
 
-	private void initSmells(Flower f) {
-		ArrayList<SmellDetector<?>> list = new ArrayList<SmellDetector<?>>();
-		list.add(new LargeMethodDetector(f));
-		list.add(new FeatureEnvyDetector(f));
-		list.add(new LargeClassDetector(f));
-		list.add(new DataClumpDetector(f));
-		list.add(new TypecastDetector(f));
-		list.add(new InstanceoftDetector(f));
-		list.add(new SwitchDetector(f));
-		list.add(new MessageChainDetector(f));
-		list.add(new TooManyArgumentsDetector(f));
-		
-		//addStubs(f, list);
-		
-		Collections.sort(list, comparator);
-		
-		smells = mapColorsOnto(list);
-	}
-	
 	public static void dispose(){
 		
 		if(smells==null)
@@ -73,14 +52,55 @@ public class SmellDetectorManager {
 		smells = null;
 	}	
 	
+	public ArrayList<SmellDetector<?>> getMethodSmellDetectors(){
+		return methodSmellDetectors;
+	}
+
+
+	
+	private void initSmells(Flower f) {
+		DataClumpDetector dataClumpSmellDetector = new DataClumpDetector(f);
+		TooManyArgumentsDetector tooManyArgumentsSmellDetector = new TooManyArgumentsDetector(f);
+		
+		ArrayList<SmellDetector<?>> list = new ArrayList<SmellDetector<?>>();
+
+		list.add(new LargeMethodDetector(f));
+		list.add(new FeatureEnvyDetector(f));
+		list.add(new LargeClassDetector(f));
+		list.add(dataClumpSmellDetector);
+		list.add(new TypecastDetector(f));
+		list.add(new InstanceoftDetector(f));
+		list.add(new SwitchDetector(f));
+		list.add(new MessageChainDetector(f));
+		
+		list.add(tooManyArgumentsSmellDetector);
+		
+		//addStubs(f, list);
+		
+		Collections.sort(list, comparator);
+		
+		methodSmellDetectors.add(dataClumpSmellDetector);
+		methodSmellDetectors.add(tooManyArgumentsSmellDetector);
+		
+		smells = mapColorsOnto(list);
+	}
+	
+	
 	private Map<SmellDetector<?>, Color> mapColorsOnto(List<SmellDetector<?>> detectors) {
-		
+
 		Map<SmellDetector<?>, Color> map = new TreeMap<SmellDetector<?>, Color>(comparator);
-		
+
 		int i = 0;
-		for(Color c : ColorManager.gradient(detectors.size()))
-			map.put(detectors.get(i++),c);
-		
+		for (Color c : ColorManager.gradient(detectors.size()))
+			map.put(detectors.get(i++), c);
+
 		return map;
 	}
+
+	private static Comparator<SmellDetector<?>> comparator = new Comparator<SmellDetector<?>>() {
+		public int compare(SmellDetector<?> s1, SmellDetector<?> s2) {
+			return (int) (1000 * (s1.obviousness() - s2.obviousness()));
+		}
+	};
+
 }

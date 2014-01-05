@@ -29,24 +29,27 @@ public class TooManyArgumentsExplanationWindow extends SmellExplanationWindow {
 		parent.setLayout(new GridLayout(1, true));
 
 		for (Map.Entry<IMethod, Integer> pair : overlay.getInstance().getMethodToNumberOfArguments().entrySet()) {
-
 			Label label = new Label(parent, SWT.NONE);
 			final IMethod method = pair.getKey();
-			label.setText(method.getElementName() + " -> " + pair.getValue());
-			label.setBackground(overlay.colorFor(method));
-			label.addMouseListener(new MouseListener() {
-				public void mouseDoubleClick(MouseEvent e) {
-				}
-
-				public void mouseDown(MouseEvent e) {
-				}
-
-				public void mouseUp(MouseEvent e) {
-					JDTUtils.openElementInEditor(method);
-				}
-			});
+			initializeLabel(pair, label, method);
 		}
 
+	}
+
+	private void initializeLabel(Map.Entry<IMethod, Integer> pair, Label label, final IMethod method) {
+		label.setText(method.getElementName() + " -> " + pair.getValue());
+		label.setBackground(overlay.colorFor(method));
+		label.addMouseListener(new MouseListener() {
+			public void mouseDoubleClick(MouseEvent e) {
+			}
+
+			public void mouseDown(MouseEvent e) {
+			}
+
+			public void mouseUp(MouseEvent e) {
+				JDTUtils.openElementInEditor(method);
+			}
+		});
 	}
 
 	@Override

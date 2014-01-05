@@ -19,15 +19,16 @@ import edu.pdx.cs.multiview.smelldetector.detectors.SmellExplanationOverlay;
 public class TooManyArgumentsOverlay extends SmellExplanationOverlay<TooManyArgumentsSmellInstance>{
 
 	private Map<IMethod, Color> methodsToColors = new HashMap<IMethod, Color>();
+	private AnnTransaction annotations = new AnnTransaction();
 	
 	public TooManyArgumentsOverlay(TooManyArgumentsSmellInstance inst, ISourceViewer sv) {
 		super(inst,sv);
 		init(inst);
 	}
 
+	
 	private void init(TooManyArgumentsSmellInstance inst) {
 		
-		AnnTransaction annotations = new AnnTransaction();
 		
 		for(Entry<IMethod, Integer> entry : inst.getMethodToNumberOfArguments().entrySet()){
 			int red = (int)(inst.magnitude() * 255);

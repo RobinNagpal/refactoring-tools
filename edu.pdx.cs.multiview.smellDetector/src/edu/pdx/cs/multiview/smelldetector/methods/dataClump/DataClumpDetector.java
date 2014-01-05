@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.IMethod;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
+import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class DataClumpDetector extends SmellDetector<SmellInstance>{
@@ -27,7 +28,7 @@ public class DataClumpDetector extends SmellDetector<SmellInstance>{
 		return spider;
 	}
 
-
+ 
 	@Override
 	public String getName() {
 		return "Data Clumps";
@@ -36,5 +37,11 @@ public class DataClumpDetector extends SmellDetector<SmellInstance>{
 	@Override
 	public void showDetails() {
 		new DataClumpExplanationWindow(spider,sourceViewer());
+	}
+
+	@Override
+	public SmellMetadataHandler<?> getSmellMetadataHandler() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

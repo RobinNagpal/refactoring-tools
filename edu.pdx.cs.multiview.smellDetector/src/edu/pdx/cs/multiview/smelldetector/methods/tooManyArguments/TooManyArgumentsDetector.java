@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.jdt.core.IMethod;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
+import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 /**
@@ -22,9 +23,12 @@ public class TooManyArgumentsDetector extends SmellDetector<TooManyArgumentsSmel
 
 	public static final String TOO_MANY_ARGUMENTS_LABEL_TEXT = "Too Many Arguments";
 	private static final double HIGHLY_OBVIOUS = 0.95;
+	private TooManyArgumentsSmellMetadataHandler metadataHandler;
 
+	
 	public TooManyArgumentsDetector(Flower f) {
 		super(f);
+		metadataHandler = new TooManyArgumentsSmellMetadataHandler();
 	}
 
 	/**
@@ -39,10 +43,7 @@ public class TooManyArgumentsDetector extends SmellDetector<TooManyArgumentsSmel
 
 	@Override
 	public TooManyArgumentsSmellInstance calculateComplexity(List<IMethod> visibleMethods) {
-		TooManyArgumentsSmellInstance inst = new TooManyArgumentsSmellInstance();
-		for (IMethod m : visibleMethods) {
-			inst.put(m, inst.numberOfArguments(m));
-		}
+		TooManyArgumentsSmellInstance inst = new TooManyArgumentsSmellInstance(visibleMethods);
 		return inst;
 	}
 
@@ -54,5 +55,10 @@ public class TooManyArgumentsDetector extends SmellDetector<TooManyArgumentsSmel
 	@Override
 	public String getName() {
 		return TOO_MANY_ARGUMENTS_LABEL_TEXT;
+	}
+
+	@Override
+	public TooManyArgumentsSmellMetadataHandler getSmellMetadataHandler() {
+		return metadataHandler;
 	}
 }

@@ -3,6 +3,7 @@ package edu.pdx.cs.multiview.smelldetector.methods.tooManyArguments;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.IMethod;
@@ -17,9 +18,13 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 
 	
 
-	public void put(IMethod m, int i) {
-		getMethodToNumberOfArguments().put(m, i);
+	public TooManyArgumentsSmellInstance(List<IMethod> visibleMethods) {
+		for (IMethod m : visibleMethods) {
+				getMethodToNumberOfArguments().put(m, numberOfArguments(m));
+		}
+
 	}
+
 
 	public int size() {
 		return getMethodToNumberOfArguments().size();
@@ -39,7 +44,7 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 	@Override
 	public double magnitude() {
 		double numberOfArgumentsExceedingThresholdOfTwo = 0;
-		for (IMethod m : methodToNumberOfArguments.keySet()) {
+		for (IMethod m : getMethodToNumberOfArguments().keySet()) {
 			numberOfArgumentsExceedingThresholdOfTwo = Math.max((numberOfArguments(m)-TWO_NUMBER_OF_ARGUMENTS), numberOfArgumentsExceedingThresholdOfTwo);
 		}
 
@@ -48,7 +53,7 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 		return severityValue ;
 	}
 
-	public int numberOfArguments(IMethod m) {
+	private int numberOfArguments(IMethod m) {
 		return m.getNumberOfParameters();
 	}
 
@@ -57,9 +62,9 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 	}
 	
 	public Integer getMaxNumberOfArguments(){
-		Collection<Integer> values = methodToNumberOfArguments.values();
+		Collection<Integer> values = getMethodToNumberOfArguments().values();
 		return Collections.max(values);
 	}
-	
+
 
 }

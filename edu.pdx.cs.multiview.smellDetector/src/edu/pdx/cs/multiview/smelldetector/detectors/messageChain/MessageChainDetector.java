@@ -14,6 +14,7 @@ import edu.pdx.cs.multiview.jdt.util.ASTPool;
 import edu.pdx.cs.multiview.jdt.util.JavaElementFinder;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
+import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class MessageChainDetector extends SmellDetector<MessageChainInstance>{
@@ -59,6 +60,12 @@ public class MessageChainDetector extends SmellDetector<MessageChainInstance>{
 	public MethodDeclaration getNode(IMethod m) {		
 		CompilationUnit icu = astPool.getAST(m.getCompilationUnit());
 		return JavaElementFinder.findMethodDeclaration(m,icu);
+	}
+
+	@Override
+	public SmellMetadataHandler<?> getSmellMetadataHandler() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

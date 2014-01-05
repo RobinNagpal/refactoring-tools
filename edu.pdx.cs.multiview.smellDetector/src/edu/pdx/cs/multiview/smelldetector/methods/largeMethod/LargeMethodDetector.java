@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.jdt.core.IMethod;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
+import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class LargeMethodDetector extends SmellDetector<LargeMethodSmellInstance> {
@@ -33,5 +34,11 @@ public class LargeMethodDetector extends SmellDetector<LargeMethodSmellInstance>
 
 	public void showDetails() {
 		new LargeMethodExplanationWindow(currentSmell(), sourceViewer());
+	}
+
+	@Override
+	public SmellMetadataHandler<?> getSmellMetadataHandler() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

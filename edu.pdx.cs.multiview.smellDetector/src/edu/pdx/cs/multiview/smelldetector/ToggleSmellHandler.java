@@ -16,6 +16,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.indexer.ClumpCreator;
+import edu.pdx.cs.multiview.smelldetector.indexer.SmellMetaDataProcessor;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 
@@ -69,6 +70,7 @@ public class ToggleSmellHandler extends AbstractHandler {
 		
 		EditorViewportListener.listenTo(activeEditor, detectors.keySet());	
 		
+		new SmellMetaDataProcessor(activeEditor, manager);
 		new	ClumpCreator(activeEditor);
 	}
 	
