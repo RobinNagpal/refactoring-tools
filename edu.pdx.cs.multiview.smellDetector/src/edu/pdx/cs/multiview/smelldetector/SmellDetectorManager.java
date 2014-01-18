@@ -26,9 +26,6 @@ public class SmellDetectorManager {
 	private static Flower flower;
 	private static Map<SmellDetector<?>, Color> smells;
 	
-	ArrayList<SmellDetector<?>> methodSmellDetectors = new ArrayList<SmellDetector<?>>();
-	
-	
 	public Map<SmellDetector<?>,Color> smells(Flower f) {
 		
 		if(flower!=f){
@@ -52,12 +49,6 @@ public class SmellDetectorManager {
 		smells = null;
 	}	
 	
-	public ArrayList<SmellDetector<?>> getMethodSmellDetectors(){
-		return methodSmellDetectors;
-	}
-
-
-	
 	private void initSmells(Flower f) {
 		DataClumpDetector dataClumpSmellDetector = new DataClumpDetector(f);
 		TooManyArgumentsDetector tooManyArgumentsSmellDetector = new TooManyArgumentsDetector(f);
@@ -78,9 +69,6 @@ public class SmellDetectorManager {
 		//addStubs(f, list);
 		
 		Collections.sort(list, comparator);
-		
-		methodSmellDetectors.add(dataClumpSmellDetector);
-		methodSmellDetectors.add(tooManyArgumentsSmellDetector);
 		
 		smells = mapColorsOnto(list);
 	}

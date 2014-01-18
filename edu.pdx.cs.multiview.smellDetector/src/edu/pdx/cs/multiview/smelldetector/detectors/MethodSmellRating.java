@@ -23,7 +23,7 @@ public abstract class MethodSmellRating<SmellType>{
 		initRating(m);
 	}
 
-	private HashMap<ITypeBinding, List<SmellType>> expressions;
+	protected HashMap<ITypeBinding, List<SmellType>> expressions;
 	
 	public List<SmellType> smells() {
 		
@@ -51,8 +51,7 @@ public abstract class MethodSmellRating<SmellType>{
 			return;
 		}
 		
-		expressions = 
-			new HashMap<ITypeBinding, List<SmellType>>();
+		expressions = new HashMap<ITypeBinding, List<SmellType>>();
 		
 		root.accept(getVisitor());
 	}
@@ -68,7 +67,9 @@ public abstract class MethodSmellRating<SmellType>{
 	private static ASTPool<ICompilationUnit> astPool = ASTPool.getDefaultCU();
 	
 	public MethodDeclaration getNode(IMethod m) {		
-		CompilationUnit icu = astPool.getAST(m.getCompilationUnit());
+		ICompilationUnit compilationUnit = m.getCompilationUnit();
+		System.out.println(" I compilation unit " + compilationUnit.getPath().toString() + compilationUnit.getElementName());
+		CompilationUnit icu = astPool.getAST(compilationUnit);
 		return JavaElementFinder.findMethodDeclaration(m,icu);
 	}
 }

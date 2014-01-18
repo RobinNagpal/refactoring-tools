@@ -13,7 +13,6 @@ import edu.pdx.cs.multiview.smelldetector.detectors.ClassSmellRating;
 import edu.pdx.cs.multiview.smelldetector.detectors.MethodSmellRating;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
-import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 //TODO: this class is more or lessa  copy of FeatureEnvyDetector
@@ -48,11 +47,6 @@ public class TypecastDetector extends SmellDetector<TypeCastInstance>{
 		//new FeatureEnvyExplanationWindow(currentSmell(),sourceViewer());
 	}
 
-	@Override
-	public SmellMetadataHandler<?> getSmellMetadataHandler() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
 class TypeCastInstance extends ClassTypeCastRating implements SmellInstance{

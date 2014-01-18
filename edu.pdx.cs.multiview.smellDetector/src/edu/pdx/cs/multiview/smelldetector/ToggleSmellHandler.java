@@ -5,6 +5,7 @@ import java.util.Map;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 import org.eclipse.swt.graphics.Color;
@@ -69,8 +70,8 @@ public class ToggleSmellHandler extends AbstractHandler {
 		flower.attachPetals(detectors);
 		
 		EditorViewportListener.listenTo(activeEditor, detectors.keySet());	
-		
-		new SmellMetaDataProcessor(activeEditor, manager);
+		JavaCore.addElementChangedListener(new JavaCodeChangeListner());
+	//	new SmellMetaDataProcessor(activeEditor, manager);
 		new	ClumpCreator(activeEditor);
 	}
 	

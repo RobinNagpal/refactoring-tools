@@ -64,9 +64,6 @@ public abstract class SmellDetector<Smell extends SmellInstance>{
 
 	public abstract String getName();
 	
-	public abstract SmellMetadataHandler<?> getSmellMetadataHandler();
-
-	
 	protected ISourceViewer sourceViewer(){
 		return sourceViewer;
 	}

@@ -14,7 +14,6 @@ import edu.pdx.cs.multiview.jdt.util.ASTPool;
 import edu.pdx.cs.multiview.jdt.util.JavaElementFinder;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
-import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class SwitchDetector extends SmellDetector<SwitchInstance>{
@@ -60,11 +59,6 @@ public class SwitchDetector extends SmellDetector<SwitchInstance>{
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public SmellMetadataHandler<?> getSmellMetadataHandler() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
 class SwitchInstance implements SmellInstance{

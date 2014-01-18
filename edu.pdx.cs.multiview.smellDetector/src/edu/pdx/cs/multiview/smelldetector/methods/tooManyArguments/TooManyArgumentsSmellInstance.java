@@ -15,10 +15,11 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 	private static final int LEVELS_OF_SMELL = 3;
 	private static final int TWO_NUMBER_OF_ARGUMENTS = 2;
 	private Map<IMethod, Integer> methodToNumberOfArguments = new HashMap<IMethod, Integer>();
-
+	private TooManyArgumentsSmellMetadataHandler metadataHandler;
 	
 
-	public TooManyArgumentsSmellInstance(List<IMethod> visibleMethods) {
+	public TooManyArgumentsSmellInstance(List<IMethod> visibleMethods, TooManyArgumentsSmellMetadataHandler metadataHandler) {
+		this.metadataHandler = metadataHandler;
 		for (IMethod m : visibleMethods) {
 				getMethodToNumberOfArguments().put(m, numberOfArguments(m));
 		}
@@ -53,9 +54,7 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 		return severityValue ;
 	}
 
-	private int numberOfArguments(IMethod m) {
-		return m.getNumberOfParameters();
-	}
+	
 
 	public Map<IMethod, Integer> getMethodToNumberOfArguments() {
 		return methodToNumberOfArguments;
@@ -64,6 +63,10 @@ class TooManyArgumentsSmellInstance implements SmellInstance {
 	public Integer getMaxNumberOfArguments(){
 		Collection<Integer> values = getMethodToNumberOfArguments().values();
 		return Collections.max(values);
+	}
+
+	private int numberOfArguments(IMethod m) {
+		return m.getNumberOfParameters();
 	}
 
 

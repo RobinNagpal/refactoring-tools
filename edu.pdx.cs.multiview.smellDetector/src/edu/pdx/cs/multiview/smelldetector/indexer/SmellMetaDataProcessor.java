@@ -1,7 +1,5 @@
 package edu.pdx.cs.multiview.smelldetector.indexer;
 
-import java.util.ArrayList;
-
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -13,19 +11,17 @@ import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 
 import edu.pdx.cs.multiview.jdt.util.JDTUtils;
 import edu.pdx.cs.multiview.smelldetector.SmellDetectorManager;
-import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
-import edu.pdx.cs.multiview.smelldetector.methods.dataClump.ClumpsAtClassLevel;
 
 public class SmellMetaDataProcessor {
 
-	ArrayList<SmellDetector<?>> methodSmellDetectors = new ArrayList<SmellDetector<?>>();
+
 	
+	@SuppressWarnings("restriction")
 	public SmellMetaDataProcessor(JavaEditor activeEditor, SmellDetectorManager manager) {
 		IJavaProject project = JDTUtils.getCompilationUnit(activeEditor).getJavaProject();
-		this.methodSmellDetectors = manager.getMethodSmellDetectors();
 		saveSmellMetadataForProject(project);
 	}
-	
+
 	private void saveSmellMetadataForProject(IJavaProject project) {
 		try {
 			IPackageFragment[] buildPackages = project.getPackageFragments();
@@ -76,11 +72,8 @@ public class SmellMetaDataProcessor {
 		}
 
 	}
-	
+
 	private void saveSmellMetadataForMethod(IMethod iMethod) throws JavaModelException {
-	
 		
 	}
-
-
 }

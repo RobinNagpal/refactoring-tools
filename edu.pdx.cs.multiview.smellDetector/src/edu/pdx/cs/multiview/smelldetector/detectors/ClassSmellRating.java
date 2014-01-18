@@ -17,8 +17,12 @@ public abstract class ClassSmellRating <MethodRating extends MethodSmellRating<T
 	
 	public void cache(IMethod m) {
 		
-		if(!rs.containsKey(m))
+		//if(!rs.containsKey(m))
 			rs.put(m,createMethodRating(m));
+	}
+	
+	public void updateRatingForMethod(IMethod m){
+		rs.put(m,createMethodRating(m));
 	}
 
 	protected abstract MethodRating createMethodRating(IMethod m);

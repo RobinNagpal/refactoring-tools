@@ -94,7 +94,7 @@ public class ClumpCollector {
 		if (element != null) {
 			Object objectValue = element.getObjectValue();
 			ClumpGroupHolder groupHolder = (ClumpGroupHolder) objectValue;
-			System.out.println(" Found Clump Group \n" + groupHolder);
+			// System.out.println(" Found Clump Group \n" + groupHolder);
 			ClumpGroup clumpGroup = groupHolder.getGroup(project);
 			return clumpGroup;
 		} else {

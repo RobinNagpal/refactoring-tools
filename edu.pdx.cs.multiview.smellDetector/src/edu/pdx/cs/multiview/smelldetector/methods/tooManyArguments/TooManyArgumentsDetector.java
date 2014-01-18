@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.jdt.core.IMethod;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
-import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 /**
@@ -43,7 +42,7 @@ public class TooManyArgumentsDetector extends SmellDetector<TooManyArgumentsSmel
 
 	@Override
 	public TooManyArgumentsSmellInstance calculateComplexity(List<IMethod> visibleMethods) {
-		TooManyArgumentsSmellInstance inst = new TooManyArgumentsSmellInstance(visibleMethods);
+		TooManyArgumentsSmellInstance inst = new TooManyArgumentsSmellInstance(visibleMethods, metadataHandler);
 		return inst;
 	}
 
@@ -57,8 +56,4 @@ public class TooManyArgumentsDetector extends SmellDetector<TooManyArgumentsSmel
 		return TOO_MANY_ARGUMENTS_LABEL_TEXT;
 	}
 
-	@Override
-	public TooManyArgumentsSmellMetadataHandler getSmellMetadataHandler() {
-		return metadataHandler;
-	}
 }

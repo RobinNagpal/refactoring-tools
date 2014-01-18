@@ -14,7 +14,6 @@ import org.eclipse.jdt.core.JavaModelException;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellInstance;
-import edu.pdx.cs.multiview.smelldetector.metadata.SmellMetadataHandler;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 public class LargeClassDetector extends SmellDetector<LargeClassInstance>{
@@ -63,11 +62,6 @@ public class LargeClassDetector extends SmellDetector<LargeClassInstance>{
 		return "Large Class";
 	}
 
-	@Override
-	public SmellMetadataHandler<?> getSmellMetadataHandler() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
 class LargeClassCollector{

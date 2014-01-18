@@ -31,8 +31,14 @@ public abstract class ASTPool <IndexType>{
 	}
 	
 	public CompilationUnit getAST(IndexType file){
-		
+	
 		return getEntry(file).unit;
+	}
+	
+	public void updateASTPool(CompilationUnit compilationUnit){
+	compilationUnit.getPackage().getName().getFullyQualifiedName() ;
+	compilationUnit.getJavaElement().getElementName();
+	//	Entry e = cache.get(file)
 	}
 
 	private Entry getEntry(IndexType file) {
