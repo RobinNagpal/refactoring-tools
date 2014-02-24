@@ -7,57 +7,36 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.JavaModelException;
 
+import edu.pdx.cs.multiview.smelldetector.indexer.EhcacheFactory;
+
 public class ClumpCollector {
 
 	private static Map<String, ClumpCollector> clumpCollectorsAtProjectLevel = new HashMap<String, ClumpCollector>();
-
-	private String projectName;
+	
 	private Cache dataClumpsCache;
-
-	// boolean to track if all the clumps for a project has been created
-	private boolean initialized;
-
 	private IJavaProject project;
-
-	private ClumpCollector(IJavaProject project) {
-		String projectName = project.getElementName();
-		this.project = project;
-		this.projectName = projectName;
-		initializeCacheForProject();
-	}
-
-	public static ClumpCollector createCumpCollector(IJavaProject project) {
-		String projectName = project.getElementName();
-		ClumpCollector clumpCollector = new ClumpCollector(project);
-		clumpCollectorsAtProjectLevel.put(projectName, clumpCollector);
+	private boolean initialized;
+	
+	public static synchronized ClumpCollector getClumpCollector(IJavaProject project) {
+		ClumpCollector clumpCollector = clumpCollectorsAtProjectLevel.get(project.getElementName());
+		if(clumpCollector == null){
+			clumpCollector = new ClumpCollector(project);
+			clumpCollectorsAtProjectLevel.put(project.getElementName(), clumpCollector);
+		}
 		return clumpCollector;
 	}
 
-	public static ClumpCollector getClumpCollector(String projectName) {
-		return clumpCollectorsAtProjectLevel.get(projectName);
-	}
-
-	private void initializeCacheForProject() {
+	private ClumpCollector(IJavaProject project) {
+		this.project = project;
+		String projectName = project.getElementName();
 		String cacheName = projectName + "_dataclumps";
-		dataClumpsCache = CacheManager.getInstance().getCache(cacheName);
-		if (dataClumpsCache == null) {
-			CacheManager.getInstance().addCache(cacheName);
-			dataClumpsCache = CacheManager.getInstance().getCache(cacheName);
-		}
-
-		CacheConfiguration config = dataClumpsCache.getCacheConfiguration();
-		// TODO : actual value can be decided after discussion with team and
-		// more profiling
-		config.setMaxEntriesLocalHeap(500);
-
+		dataClumpsCache = getEhcacheFactory().createCache(cacheName);
 	}
 
 	public void addToCache(ClumpSignature sig, IMethod m) {
@@ -74,37 +53,42 @@ public class ClumpCollector {
 	}
 
 	public List<ClumpGroup> inGroupOf(IMethod method) {
-		if (initialized) {
-			try {
-				List<ClumpSignature> sigs = ClumpSignature.from(method.getParameterNames());
-				List<ClumpGroup> groups = new LinkedList<ClumpGroup>();
-				for (ClumpSignature sig : sigs) {
-					groups.add(getFromCache(sig));
-				}
-				return groups;
-			} catch (JavaModelException e) {
-				e.printStackTrace();
+		try {
+			List<ClumpSignature> sigs = ClumpSignature.from(method.getParameterNames());
+			List<ClumpGroup> groups = new LinkedList<ClumpGroup>();
+			for (ClumpSignature sig : sigs) {
+				groups.add(getFromCache(sig));
 			}
+			return groups;
+		} catch (JavaModelException e) {
+			e.printStackTrace();
 		}
 		return new ArrayList<ClumpGroup>();
 	}
 
 	private ClumpGroup getFromCache(ClumpSignature sig) {
 		Element element = dataClumpsCache.get(sig);
-		if (element != null) {
+		if (initialized && element != null) {
 			Object objectValue = element.getObjectValue();
 			ClumpGroupHolder groupHolder = (ClumpGroupHolder) objectValue;
 			System.out.println(" Found Clump Group \n" + groupHolder);
 			ClumpGroup clumpGroup = groupHolder.getGroup(project);
 			return clumpGroup;
 		} else {
-			System.out.println(" **** No Clump Found for Sig *** :" + sig);
+			System.out.println(" No Clump Found for Sig :" + sig);
 			return new EmptyClumpGroup(sig);
 		}
+
 	}
 
+	
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
 	}
+
+	private EhcacheFactory getEhcacheFactory() {
+		return EhcacheFactory.getInstance();
+	}
+
 
 }

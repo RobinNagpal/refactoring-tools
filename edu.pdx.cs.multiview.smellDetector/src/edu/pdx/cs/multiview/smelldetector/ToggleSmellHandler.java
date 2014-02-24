@@ -9,7 +9,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.IPartListener;
@@ -19,7 +18,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 
 import edu.pdx.cs.multiview.smelldetector.detectors.SmellDetector;
-import edu.pdx.cs.multiview.smelldetector.indexer.ClumpCreator;
+import edu.pdx.cs.multiview.smelldetector.indexer.SmellMetaDataIndexer;
 import edu.pdx.cs.multiview.smelldetector.ui.Flower;
 
 
@@ -73,16 +72,16 @@ public class ToggleSmellHandler extends AbstractHandler {
 		
 		EditorViewportListener.listenTo(activeEditor, detectors.keySet());
 		
-		initializeClumpCreationJob(activeEditor);
+		initializeSmellMataDataIndexing(activeEditor);
 		
 	}
 
-	private void initializeClumpCreationJob(final JavaEditor activeEditor) {
-		Job job = new Job("My First Job") {
+	private void initializeSmellMataDataIndexing(final JavaEditor activeEditor) {
+		Job job = new Job("Index Smell Metadata") {
 
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				new ClumpCreator(activeEditor);
+				new SmellMetaDataIndexer(activeEditor);
 				return Status.OK_STATUS;
 			}
 		};
